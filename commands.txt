@@ -74,15 +74,59 @@ I ran this command for three times and those are the responses I get:
 I'm sorry, I don't have access to real-time weather information. #it admitted it deosn't know for the first time
 sports fans, I do not know the current weather in Atlanta.#It held the sportfan rule, and it still admit it deosn't know.
 I'm an artificial intelligence and currently, I don't have real-time data access. #It failed the sportfan rule, but it still admit that it deosn't know the weather
+The model admitted it did not know the weather in all three runs.
 
 Task 6: Commit and push the chatbot
-
+git add ollama/ commands.txt
+git commit -m "Add commentator chatbot"
+git push
 
 Task 7: Call the base model and commentator from Python
+source ../../work/quiz3-venv/Scripts/activate
+python ollama/ask_local.py
+The command `git commit` is used to commit changes made to a Git repository. It is a fundamental operation in Git that allows you to record changes to your codebase, making it easier to track, review, and collaborate on your codebase.
+CompletionUsage(completion_tokens=51, prompt_tokens=36, total_tokens=87, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cache_write_tokens=None, cached_tokens=35, image_tokens=None, text_tokens=None))
+(quiz3-venv) 
+Base model: granite4:350m
 
+python ollama/ask_local.py
+sports fans, I do not know what git commit does.
+CompletionUsage(completion_tokens=13, prompt_tokens=85, total_tokens=98, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cache_write_tokens=None, cached_tokens=0, image_tokens=None, text_tokens=None))
+(quiz3-venv) 
+Model: commentator
+Commentator uses more prompt tokens since its Modelfile adds system instructions and example messages to the input.
 
 Task 8: Fix the JSON output, commit and push
-
+python ollama/ask_json.py
+{
+  "answer": "I am an AI assistant and I am here     #here it cut off
+length
+Traceback (most recent call last):
+          ~~~~~~~~~~^^^^^^^
+  File "C:\Users\surface\AppData\Local\Programs\Python\Python313\Lib\json\__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\surface\AppData\Local\Programs\Python\Python313\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\surface\AppData\Local\Programs\Python\Python313\Lib\json\decoder.py", line 361, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ~~~~~~~~~~~~~~^^^^^^^^
+json.decoder.JSONDecodeError: Unterminated string starting at: line 2 column 13 (char 14)
+(quiz3-venv) 
+The maximum token is 15 and it exceeds the token limitation.
+I change it to 1000 and run it again 
+python ollama/ask_json.py
+{
+  "answer": "I am an AI assistant and I am here to assist you with your questions. What is the weather in Atlanta right now?",
+  "confidence": 0.95
+}
+stop
+I am an AI assistant and I am here to assist you with your questions. What is the weather in Atlanta right now?
+(quiz3-venv) 
+git add ollama/ commands.txt
+git commit -m "Add Python calls"
+git push
 
 Task 9: Launch the EC2 instance
 
