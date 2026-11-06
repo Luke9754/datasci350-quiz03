@@ -130,23 +130,32 @@ git push
 
 Task 9: Launch the EC2 instance
 
-
 Task 10: Set key permissions and connect with SSH
-
+chmod 400 "/c/Users/surface/Downloads/datasci350-quiz3.pem"
+ssh -i "/c/Users/surface/Downloads/datasci350-quiz3.pem" ubuntu@ec2-3-135-229-163.us-east-2.compute.amazonaws.com
+ubuntu@ip-172-31-22-164:~$
 
 Task 11: Install the Python packages
-
+sudo apt update
+sudo apt install python3-pandas python3-matplotlib python3-seaborn
 
 Task 12: Upload the script and data with SCP
-
+scp -i "/c/Users/surface/Downloads/datasci350-quiz3.pem" aws/traffic_analysis.py aws/website_traffic.txt ubuntu@3.135.229.163:~/
 
 Task 13: Run the analysis and create the fingerprint
-
+python3 traffic_analysis.py > results.txt
+cat /var/lib/cloud/data/instance-id >> results.txt
+sha256sum results.txt > fingerprint.txt
 
 Task 14: Download the three result files
-
+scp -i "/c/Users/surface/Downloads/datasci350-quiz3.pem" ubuntu@3.135.229.163:~/results.txt aws/
+scp -i "/c/Users/surface/Downloads/datasci350-quiz3.pem" ubuntu@3.135.229.163:~/fingerprint.txt aws/
+scp -i "/c/Users/surface/Downloads/datasci350-quiz3.pem" ubuntu@3.135.229.163:~/traffic_analysis.png aws/
 
 Task 15: Explain stopping costs, terminate the instance, commit and push
+When an instance is stopped, I still pay for the EBS storage volumes attached to it.
+git add .
+git commit -m "Add AWS analysis results"
+git push
 
-
-
+I used ai to help me format and Codex ran the commands to fork and clone the repository for me.
